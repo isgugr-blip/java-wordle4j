@@ -10,7 +10,7 @@ import java.util.List;
     на выходе должен быть класс WordleDictionary
  */
 public class WordleDictionaryLoader {
-    public static WordleDictionary loadDictionary(PrintWriter log, String dictFileName) {
+    public static WordleDictionary loadDictionary(PrintWriter log, String dictFileName) throws IOException {
         List<String> words = new ArrayList<>();
         log.println("Загрузка словаря");
         try (BufferedReader reader = new BufferedReader(new FileReader(dictFileName))) {
@@ -29,10 +29,10 @@ public class WordleDictionaryLoader {
             return dictionary;
         } catch (FileNotFoundException e) {
             log.println("Не найден файл словаря");
-            throw new RuntimeException(e);
+            throw e;
         } catch (IOException e) {
             log.println("Ошибка ввода-вывода при работе с словарем. Подробности: " + e.getMessage());
-            throw new RuntimeException(e);
+            throw e;
         }
     }
 }
